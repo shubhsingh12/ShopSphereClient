@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProductService {
 	
-	String URL="http://shopspherewebservice-production.up.railway.app/product/api/";
+	String URL="https://shopspherewebservice-production.up.railway.app/product/api/";
 	RestTemplate restTemplate=new RestTemplate();
 	
 	
