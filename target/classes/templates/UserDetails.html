@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Details - ShopSphere</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="/css/shopsphere-premium.css" rel="stylesheet">
+  <style>
+    .sidebar-shell {
+      grid-template-columns: 270px minmax(0, 1fr);
+    }
+
+    .premium-sidebar {
+      min-width: 0;
+    }
+
+    .admin-table-card {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .38);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .admin-table-card .table-responsive {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    .users-main {
+      min-width: 0;
+      overflow-x: hidden;
+    }
+
+    .users-header {
+      min-width: 0;
+    }
+
+    .users-title {
+      min-width: 0;
+    }
+
+    .admin-table {
+      min-width: 1120px;
+      color: var(--text);
+      margin-bottom: 0;
+    }
+
+    .admin-table thead th {
+      color: #fcd66b;
+      background: rgba(255, 255, 255, .06);
+      border-bottom: 1px solid var(--line);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .admin-table tbody td {
+      color: var(--text);
+      border-color: var(--line);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .admin-table tbody tr:hover td {
+      background: rgba(255, 255, 255, .05);
+    }
+
+    .user-avatar {
+      width: 42px;
+      height: 42px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #04201d;
+      background: linear-gradient(135deg, var(--brand), var(--gold));
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 86px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: .74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+    }
+
+    .status-active {
+      color: #99f6e4;
+      background: rgba(20, 184, 166, .13);
+      border-color: rgba(20, 184, 166, .25);
+    }
+
+    .status-blocked {
+      color: #fecdd3;
+      background: rgba(251, 77, 99, .14);
+      border-color: rgba(251, 77, 99, .28);
+    }
+
+    .status-inactive {
+      color: #fde68a;
+      background: rgba(248, 193, 74, .14);
+      border-color: rgba(248, 193, 74, .28);
+    }
+
+    .table-search {
+      width: 100%;
+      max-width: 320px;
+      min-width: 0;
+      flex: 1 1 260px;
+    }
+
+    .header-actions {
+      min-width: 0;
+      max-width: 100%;
+      flex: 0 1 480px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .sidebar-logout {
+      width: 100%;
+      margin-top: 18px;
+    }
+
+    .sidebar-logout .btn {
+      width: 100%;
+    }
+
+    @media (max-width: 991.98px) {
+      .sidebar-shell {
+        display: block;
+      }
+
+      .users-main {
+        overflow-x: hidden;
+      }
+
+      .table-search {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 1199.98px) {
+      .header-actions {
+        width: 100%;
+        flex-basis: auto;
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-shell">
+    <aside class="premium-sidebar">
+      <a class="navbar-brand d-flex align-items-center mb-4" href="/">
+        <span class="brand-icon"><i class="bi bi-bag-check-fill"></i></span>
+        <span>ShopSphere Admin</span>
+      </a>
+      <a class="sidebar-link" href="/auth/dashboard"><i class="bi bi-speedometer2"></i>Dashboard</a>
+      <a class="sidebar-link" href="/admin/add-product"><i class="bi bi-plus-circle"></i>Add Product</a>
+      <a class="sidebar-link" href="/admin/view-products"><i class="bi bi-box-seam"></i>View Products</a>
+      <a class="sidebar-link active" href="/admin/users"><i class="bi bi-people"></i>Manage Users</a>
+      <a class="sidebar-link" href="/"><i class="bi bi-house-door"></i>Home</a>
+      <form class="sidebar-logout" action="/auth/logout" method="post">
+        <button class="btn btn-danger-premium" type="submit"><i class="bi bi-box-arrow-right me-2"></i>Logout</button>
+      </form>
+    </aside>
+
+    <main class="users-main p-4 p-lg-5">
+      <div class="users-header d-flex flex-column flex-xl-row justify-content-between align-items-xl-center gap-4 mb-4" data-aos="fade-up">
+        <div class="users-title">
+          <span class="eyebrow"><i class="bi bi-people"></i> User Management</span>
+          <h1 class="h2 fw-bold mt-2 mb-2">User Details</h1>
+          <p class="muted mb-0">Registered customers, account status, login activity, and order counts.</p>
+        </div>
+
+        <div class="d-flex flex-column flex-sm-row gap-3 header-actions">
+          <div class="input-group table-search">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input class="form-control" type="search" id="userSearch" placeholder="Search users">
+          </div>
+          <form action="/auth/logout" method="post" class="d-none d-lg-block">
+            <button class="btn btn-danger-premium px-4" type="submit"><i class="bi bi-box-arrow-right me-2"></i>Logout</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="metric-card">
+            <i class="bi bi-person-lines-fill"></i>
+            <h2 class="metric-value" th:text="${users != null ? users.size() : 0}">0</h2>
+            <p class="muted mb-0">Total Users</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="metric-card">
+            <i class="bi bi-shield-check"></i>
+            <h2 class="h5 mt-3">Account Overview</h2>
+            <p class="muted mb-0">Track role and status for every registered profile.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="metric-card">
+            <i class="bi bi-bag-check"></i>
+            <h2 class="h5 mt-3">Order Activity</h2>
+            <p class="muted mb-0">Review total orders and latest login details.</p>
+          </div>
+        </div>
+      </div>
+
+      <section class="admin-table-card" th:if="${users != null and !users.isEmpty()}" data-aos="fade-up">
+        <div class="table-responsive">
+          <table class="table admin-table" id="usersTable">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Age</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Last Login</th>
+                <th>Orders</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="user : ${users}">
+                <td>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="user-avatar" th:text="${user.name != null and !user.name.isEmpty() ? #strings.substring(user.name, 0, 1) : 'U'}">U</span>
+                    <div>
+                      <div class="fw-bold" th:text="${user.name}">Aarav Sharma</div>
+                      <div class="muted small" th:text="${user.id}">U101</div>
+                    </div>
+                  </div>
+                </td>
+                <td th:text="${user.email}">aarav@example.com</td>
+                <td th:text="${user.phone}">9876543210</td>
+                <td th:text="${user.age}">28</td>
+                <td><span class="badge-soft" th:text="${user.role}">CUSTOMER</span></td>
+				<td>
+				    <a th:href="@{'/admin/toggle-status/' + ${user.email}}"
+				       class="status-pill text-decoration-none"
+				       th:classappend="${user.status == 'ACTIVE'} 
+				            ? ' status-active' 
+				            : (${user.status == 'BLOCKED'} 
+				            ? ' status-blocked' 
+				            : ' status-inactive')"
+				       th:text="${user.status}">
+				       ACTIVE
+				    </a>
+				</td>
+				<td th:text="${user.creationTime != null 
+				    ? #temporals.format(user.creationTime, 'dd MMM yyyy HH:mm') 
+				    : '-'}"></td>
+
+				<td th:text="${user.lastLogin != null 
+				    ? #temporals.format(user.lastLogin, 'dd MMM yyyy HH:mm') 
+				    : 'Never'}"></td>
+                <td><strong class="text-warning" th:text="${user.totalOrders != null ? user.totalOrders : 0}">12</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="empty-state text-center" th:if="${users == null or users.isEmpty()}" data-aos="fade-up">
+        <i class="bi bi-person-x display-5 text-warning"></i>
+        <h2 class="h4 mt-3">No users found</h2>
+        <p class="muted mb-0">Registered users will appear here once available.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="/js/shopsphere-premium.js"></script>
+  <script>
+    const searchInput = document.getElementById('userSearch');
+    const usersTable = document.getElementById('usersTable');
+
+    if (searchInput && usersTable) {
+      searchInput.addEventListener('input', function () {
+        const keyword = this.value.toLowerCase();
+        const rows = usersTable.querySelectorAll('tbody tr');
+
+        rows.forEach(function (row) {
+          row.style.display = row.textContent.toLowerCase().includes(keyword) ? '' : 'none';
+        });
+      });
+    }
+  </script>
+</body>
+</html>

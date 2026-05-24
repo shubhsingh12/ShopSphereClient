@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>User Dashboard - ShopSphere</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+	<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+		rel="stylesheet">
+	<link href="/css/shopsphere-premium.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="sidebar-shell">
+		<aside class="premium-sidebar">
+			<a class="navbar-brand d-flex align-items-center mb-4" href="/"><span class="brand-icon"><i
+						class="bi bi-bag-check-fill"></i></span><span>ShopSphere</span></a>
+			<a class="sidebar-link active" href="/user/userDashboard"><i class="bi bi-speedometer2"></i>Dashboard</a>
+			<a class="sidebar-link" href="/user/view-orders"><i class="bi bi-receipt"></i>My Orders</a>
+			<a class="sidebar-link" href="/user/view-products"><i class="bi bi-grid"></i>Products</a>
+			<a class="sidebar-link" href="/user/cartView"><i class="bi bi-cart3"></i>Cart</a>
+			<a class="sidebar-link" href="/"><i class="bi bi-house-door"></i>Home</a>
+		</aside>
+		<main class="p-4 p-lg-5">
+			<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-5"
+				data-aos="fade-up">
+				<div>
+					<span class="eyebrow"><i class="bi bi-stars"></i> User Dashboard</span>
+					<h1 class="h2 fw-bold mt-2">Welcome, <span class="text-warning" th:text="${username}">User</span>
+					</h1>
+				</div>
+				<form action="/auth/logout" method="post"><button class="btn btn-danger-premium px-4"><i
+							class="bi bi-box-arrow-right me-2"></i>Logout</button></form>
+			</div>
+			<div class="row g-4">
+				<div class="col-md-6 col-xl-3" data-aos="fade-up">
+					<div class="metric-card"><i class="bi bi-bag-check"></i>
+						<h3 class="h6 muted mt-3">Total Orders</h3>
+						<p class="metric-value" th:text="${totalOrders}">0</p>
+					</div>
+				</div>
+				<div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="100">
+					<div class="metric-card"><i class="bi bi-hourglass-split"></i>
+						<h3 class="h6 muted mt-3">Active Orders</h3>
+						<p class="metric-value" th:text="${activeOrders}">0</p>
+					</div>
+				</div>
+				<div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="200">
+					<div class="metric-card"><i class="bi bi-check2-circle"></i>
+						<h3 class="h6 muted mt-3">Completed Orders</h3>
+						<p class="metric-value" th:text="${completedOrders}">0</p>
+					</div>
+				</div>
+				<div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="300">
+					<div class="metric-card"><i class="bi bi-envelope"></i>
+						<h3 class="h6 muted mt-3">Account Email</h3>
+						<p class="fw-bold mb-0 text-break" th:text="${email}">email@example.com</p>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+	<script src="/js/shopsphere-premium.js"></script>
+</body>
+
+</html>
