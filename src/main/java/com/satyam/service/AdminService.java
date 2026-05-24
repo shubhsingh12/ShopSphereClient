@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminService {
 	
-	String URL="http://shopspherewebservice-production.up.railway.app/admin/api/";
+	String URL="https://shopspherewebservice-production.up.railway.app/admin/api/";
 	RestTemplate restTemplate=new RestTemplate();
 	
 	public boolean saveProduct(ProductDto addRequest, MultipartFile img) throws IOException {
