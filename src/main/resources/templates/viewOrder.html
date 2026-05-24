@@ -55,6 +55,30 @@
                 </div>
                 <p class="muted mb-0 mt-2">Order Date: <span th:text="${order.orderDateTime}"></span></p>
               </div>
+			  <div class="mt-3">
+			      
+			      <!-- ORDER PLACED -->
+			      <span th:if="${order.status == 'ORDER_PLACED'}"
+			            class="badge rounded-pill px-3 py-2 bg-primary-subtle text-primary border border-primary-subtle">
+			          <i class="bi bi-bag-check me-1"></i>
+			          Order Placed
+			      </span>
+
+			      <!-- DELIVERED -->
+			      <span th:if="${order.status == 'DELIVERED'}"
+			            class="badge rounded-pill px-3 py-2 bg-success-subtle text-success border border-success-subtle">
+			          <i class="bi bi-check-circle me-1"></i>
+			          Delivered
+			      </span>
+
+			      <!-- CANCELLED -->
+			      <span th:if="${order.status == 'CANCELLED'}"
+			            class="badge rounded-pill px-3 py-2 bg-danger-subtle text-danger border border-danger-subtle">
+			          <i class="bi bi-x-circle me-1"></i>
+			          Cancelled
+			      </span>
+
+			  </div>
               <span th:if="${order.status == 'CANCELLED'}" class="btn btn-secondary px-4 disabled">
                 <i class="bi bi-x-circle me-2"></i>Cancelled
               </span>
