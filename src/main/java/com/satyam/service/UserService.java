@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-	String URL="http://localhost:1998/user/api/";
+	String URL="http://shopspherewebservice-production.up.railway.app/user/api/";
 	RestTemplate restTemplate=new RestTemplate();
 	
 	public List<ProductDto> getAllProduct() {
