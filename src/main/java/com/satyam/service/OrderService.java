@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class OrderService {
 	
 	RestTemplate restTemplate=new RestTemplate();
-	String URL="http://localhost:1998/order/api/";
+	String URL="http://shopspherewebservice-production.up.railway.app/order/api/";
 	
 	
 	public boolean createOrder(OrderDto orderDto, String userEmail) {
