@@ -20,7 +20,7 @@ public class CartService {
 
     private final AdminController adminController;
 	
-	String URL="http://localhost:1998/cart/api/";
+	String URL="http://shopspherewebservice-production.up.railway.app/cart/api/";
 	RestTemplate restTemplate=new RestTemplate();
 
    
