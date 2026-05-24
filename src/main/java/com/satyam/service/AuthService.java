@@ -16,7 +16,7 @@ public class AuthService {
 
    
 
-	String URL="http://shopspherewebservice-production.up.railway.app/auth/";
+	String URL="https://shopspherewebservice-production.up.railway.app/auth/";
 	RestTemplate restTemplate=new RestTemplate();
 
    
